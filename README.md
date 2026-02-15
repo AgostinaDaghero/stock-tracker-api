@@ -1,47 +1,33 @@
 # Stock Tracker API
 
-Backend API built with **Java** for managing product stock and inventory operations.  
-The system provides user authentication with roles (Admin and Employee) and includes tools for product management, stock movements, and reporting.  
+Backend REST API built with Spring Boot for managing product stock and inventory operations.
 
----
+## Features
 
-## 🚀 Features
+- Role-based access control (ADMIN / USER)
+- CRUD operations for products
+- Layered architecture (Controller - Service - Repository)
+- Spring Security configuration
+- Basic authentication
+- JPA/Hibernate persistence
 
-### 🔐 User Roles
-- **Admin**
-  - Create, update, and delete products.
-  - Manage users and assign roles.
-  - Record stock entries and exits.
-  - Generate inventory reports.
-- **Employee**
-  - Check stock availability.
-  - Record sales (stock outflow).
-  - Register product entries (if allowed by admin).
+## Tech Stack
 
-### 📦 Product Management
-- Add, update, and remove products.
-- Categorize products and add descriptions.
-- Track available quantities.
+- Java
+- Spring Boot
+- Spring Security
+- JPA / Hibernate
+- MySQL (configurable)
 
-### 📊 Stock Operations
-- Record product inflows and outflows.
-- Keep history of stock movements.
-- Alerts for low stock.
+## Architecture
 
-### 📈 Reports
-- Current stock by product.
-- Movements by date range.
-- Low-stock alerts.
+The project follows a layered architecture:
 
----
+- Controller layer: Handles HTTP requests and responses
+- Service layer: Business logic
+- Repository layer: Data persistence
 
-## 🛠️ Tech Stack
-- **Java** (Backend)
-- **Spring Boot** (Framework)
-- **Hibernate / JPA** (ORM)
-- **MySQL / PostgreSQL** (Database)
-- **JWT** (Authentication)
+## Security
 
----
-
-## 📂 Project Structure (planned)
+- Role-based authorization using `@PreAuthorize`
+- HTTP Basic authentication

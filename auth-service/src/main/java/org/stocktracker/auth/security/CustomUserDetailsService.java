@@ -1,9 +1,11 @@
-package org.stocktracker.api.security;
+package org.stocktracker.auth.security;
 
-import org.stocktracker.api.model.User;
-import org.stocktracker.api.repository.UserRepository;
-import org.springframework.security.core.userdetails.*;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.stocktracker.auth.model.User;
+import org.stocktracker.auth.repository.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -28,11 +30,9 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         return org.springframework.security.core.userdetails.User
                 .builder()
-                //We use email as the username for authentication
                 .username(user.getEmail())
                 .password(user.getPassword())
-                //Convert the entity role to Spring Authority
-                .authorities(user.getRole().getRoleName())
+                .roles(user.getRole().getRoleName()) //←roles() automatically adds ROLE_
                 .disabled(!user.getActive())
                 .build();
     }

@@ -1,4 +1,4 @@
-package org.stocktracker.api.dto;
+package org.stocktracker.auth.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

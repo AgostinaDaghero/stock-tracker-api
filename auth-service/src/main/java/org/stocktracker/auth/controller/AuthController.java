@@ -1,13 +1,16 @@
-package org.stocktracker.api.controller;
+package org.stocktracker.auth.controller;
 
-import org.stocktracker.api.dto.AuthRequest;
-import org.stocktracker.api.dto.AuthResponse;
-import org.stocktracker.api.security.JwtService;
-import org.stocktracker.api.security.CustomUserDetailsService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.stocktracker.auth.dto.AuthRequest;
+import org.stocktracker.auth.dto.AuthResponse;
+import org.stocktracker.auth.security.CustomUserDetailsService;
+import org.stocktracker.auth.security.JwtService;
 
 @RestController
 @RequestMapping("/auth")
@@ -46,4 +49,6 @@ public class AuthController {
 
         return new AuthResponse(token);
     }
+
+
 }

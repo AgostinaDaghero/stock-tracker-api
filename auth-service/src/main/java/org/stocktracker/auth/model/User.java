@@ -1,4 +1,4 @@
-package org.stocktracker.api.model;
+package org.stocktracker.auth.model;
 
 import jakarta.persistence.*;
 import lombok.*;

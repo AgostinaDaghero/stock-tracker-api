@@ -29,16 +29,16 @@ public class ProductService {
     }
 
     public Product updateProduct(Integer id, Product productDetails) {
-        return productRepository.findById(id)
-                .map(product -> {
-                    product.setName(productDetails.getName());
-                    product.setDescription(productDetails.getDescription());
-                    product.setCategory(productDetails.getCategory());
-                    product.setStockQuantity(productDetails.getStockQuantity());
-                    product.setUnitPrice(productDetails.getUnitPrice());
-                    return productRepository.save(product);
-                })
-                .orElseThrow(() -> new RuntimeException("Product not found with id " + id));
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        product.setName(productDetails.getName());
+        product.setDescription(productDetails.getDescription());
+        product.setCategory(productDetails.getCategory());
+        product.setStockQuantity(productDetails.getStockQuantity());
+        product.setUnitPrice(productDetails.getUnitPrice());
+
+        return productRepository.save(product);
     }
 
     public void deleteProduct(Integer id) {

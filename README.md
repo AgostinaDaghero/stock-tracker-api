@@ -75,7 +75,6 @@ Authorization
 ## 🛠 Tech Stack
 
 - Java
-
 - Spring Boot
 - Spring Security
 - JWT (jjwt)

@@ -1,102 +1,152 @@
 # Stock Tracker API
 
-Stock Tracker API is a backend system built with Spring Boot, structured as two independent microservices:
+Stock Tracker API is a backend system built with **Spring Boot** using a **microservices architecture**.
 
-- Auth Service → Handles authentication and JWT generation
-- Inventory Service → Manages products and applies role-based authorization
+The system is composed of two services:
 
-The project demonstrates stateless authentication using JWT, method-level authorization with Spring Security, and a clean separation of responsibilities between services.
+- **Auth Service** → Handles authentication and JWT generation
+- **Inventory Service** → Manages products and enforces role-based authorization
+
+The project demonstrates **stateless authentication with JWT**, **Spring Security authorization**, and a clean separation between authentication and business logic.
+
+---
 
 ## 🚀 Features
 
-- Stateless authentication using JWT
+- JWT-based authentication
 - Role-based authorization (ADMIN / USER)
-- CRUD operations for products
-- Microservices separation (Auth & Inventory)
-- Method-level security using @PreAuthorize
-- Custom JWT filters
-- Password encryption using BCrypt
-- OpenAPI (Swagger) documentation with JWT support
-- JPA/Hibernate persistence
+- Stateless security configuration
+- Product CRUD operations
+- Microservices architecture
+- Method-level security with `@PreAuthorize`
+- Password encryption with BCrypt
+- OpenAPI (Swagger) documentation
+- JPA / Hibernate persistence
+
+---
 
 ## 🏗 Architecture
 
-The system is divided into two microservices:
+### Auth Service
+Responsible for authentication.
 
-🔐 Auth Service
+- Authenticates users using email and password
+- Generates JWT tokens containing user roles
+- Uses Spring Security with BCrypt password hashing
 
-- Authenticates users via email and password
-- Uses AuthenticationManager
-- Loads users from database
-- Generates JWT tokens including roles
-- Uses BCrypt for password hashing
-- Stateless configuration (SessionCreationPolicy.STATELESS)
-
-📦 Inventory Service
+### Inventory Service
+Responsible for product management.
 
 - Validates JWT tokens
 - Extracts roles from token claims
-- Applies role-based authorization using @PreAuthorize
-- Implements CRUD operations for products
-- Stateless configuration
-- Swagger configured with Bearer authentication
+- Applies role-based access control
+- Implements product CRUD operations
+
+---
 
 ## 🔐 Security
 
-Authentication
+Authentication uses **JWT tokens** containing:
 
-- JWT-based authentication
-- Tokens include:
-  - Subject (email)
-  - Roles
-  - Issued date
-  - Expiration date
-- Stateless session management (SessionCreationPolicy.STATELESS)
+- User email
+- Roles
+- Issued date
+- Expiration date
 
-Authorization
+Authorization rules:
 
-- Role-based access control:
-  - USER → Can view products
-  - ADMIN → Can create, update and delete products
-- Method-level security enabled with @EnableMethodSecurity
-- Custom JwtAuthenticationFilter in both services
+- **USER** → Can view products
+- **ADMIN** → Can create, update and delete products
 
-## 🔄 Authentication Flow
+---
 
-1. Client sends POST /auth/login with email and password.
-2. Auth Service authenticates user.
-3. JWT is generated and returned.
-4. Client includes token in request header:
-   Authorization: Bearer <token>
-5. Inventory Service validates token.
-6. Roles are extracted from token.
-7. Access is granted or denied based on role.
+## 📡 Main Endpoints
+
+### Auth Service
+
+```
+
+POST /auth/login
+
+````
+
+Returns a JWT token.
+
+Example request:
+
+```json
+{
+  "email": "admin@email.com",
+  "password": "admin123"
+}
+````
+
+### Inventory Service
+
+```
+GET /products
+POST /products
+PUT /products/{id}
+DELETE /products/{id}
+```
+
+All requests require:
+
+```
+Authorization: Bearer <JWT_TOKEN>
+```
+
+---
+
+## ▶ Running the Project
+
+1. Start **Auth Service**
+
+Runs on:
+
+```
+http://localhost:8080
+```
+
+2. Start **Inventory Service**
+
+Runs on:
+
+```
+http://localhost:8081
+```
+
+3. Login to generate a token
+
+```
+POST /auth/login
+```
+
+4. Use the token in requests:
+
+```
+Authorization: Bearer <JWT_TOKEN>
+```
+
+---
 
 ## 🛠 Tech Stack
 
-- Java
-- Spring Boot
-- Spring Security
-- JWT (jjwt)
-- JPA / Hibernate
-- MySQL (configurable)
-- OpenAPI (Swagger)
+* Java
+* Spring Boot
+* Spring Security
+* JWT (jjwt)
+* JPA / Hibernate
+* MySQL
+* OpenAPI (Swagger)
 
-## 🔮 Future Improvements
-
-- Implement refresh tokens
-- Add API Gateway
-- Add automated testing (unit & integration)
-- Implement global exception handling
-- Add centralized logging
-- Introduce CI/CD pipeline
+---
 
 ## 🎯 Project Goal
 
-This project was built to gain hands-on experience with:
+This project was built to practice:
 
-- Spring Security internals
-- Stateless authentication
-- JWT-based authorization
-- Microservices separation
-- Role-based access control
+* Spring Security internals
+* Stateless authentication with JWT
+* Role-based authorization
+* Microservices architecture
